@@ -1,57 +1,76 @@
 {% extends 'base.html' %}
 
-{% block title %} Title {% endblock %}
+{% block title %} SYNOMIKA {% endblock %}
 
 {% block body %}
 
 <!-- contents (START) -->
 
+<div class="flex flex-col items-center justify-center h-screen">
+    <div class="bg-gray-800 p-4 md:p-10">
+        <div class="navbar top-0 w-full bg-transparent z-50 transition duration-300 ease-in-out flex justify-center">
+            <div class="inner-width flex items-center justify-center flex-col">
+                <a href="{{ url_for('index') }}" class="logo">
+                    <img src="static/images/synomika.png" alt="Synomika" class="h-24" />
+                </a>
+            </div>
+        </div>
 
-<nav class="navbar">
-    <div class="inner-width">
-        <a href="" class="logo"></a>
-        <button class="menu-toggler">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        <div class="navbar-menu">
+        <p class="text-sm mt-4 text-center text-gray-400">About 3,400,000 results (0.34 seconds)</p>
+
+        <form class="translate-form flex flex-col items-center mt-4">
+            <ul class="list-none flex items-center space-x-4">
+                <li class="row form">
+                    <select
+                        class="py-2 px-4 border border-gray-400 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent"></select>
+                </li>
+                <button type="button"
+                    class="change py-2 px-4 bg-yellow-400 text-gray-900 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent hover:bg-yellow-500">
+                    <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                </button>
+                <li class="row to">
+                    <select
+                        class="py-2 px-4 border border-gray-400 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent"></select>
+                </li>
+            </ul>
+
+            <div class="text-input flex flex-col md:flex-row mt-4 space-x-0 md:space-x-4">
+                <textarea spellcheck="false"
+                    class="from-text resize-none h-32 w-full md:w-1/2 bg-transparent border border-gray-400 rounded-lg text-xl px-5 py-3 mb-4 md:mb-0 md:mr-2 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
+                    placeholder="Type your text"></textarea>
+                <textarea spellcheck="false" readonly disabled
+                    class="to-text resize-none h-32 w-full md:w-1/2 bg-transparent border border-gray-400 rounded-lg text-xl px-5 py-3 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
+                    placeholder="Translation"></textarea>
+            </div>
+
+            <button type="submit"
+                class="translate-button w-full md:w-1/3 py-4 px-6 bg-yellow-400 text-gray-900 text-lg rounded-full mt-4 cursor-pointer overflow-hidden focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent hover:bg-yellow-500">
+                <span class="inline-block w-full h-full text-center">TRANSLATE</span>
+            </button>
+
+            <div class="loading-icon hidden">
+                <i class="fas fa-spinner fa-spin"></i>
+            </div>
+        </form>
+
+        <p class="text-sm mt-4 text-center text-gray-400">Open in Translation - Feedback</p>
+
+        <!-- social media icons -->
+        <div class="mt-4 text-center"
+            style="flex-wrap: wrap;">
+            <a href="#"
+                class="fab fa-facebook text-gray-400 hover:text-yellow-400 transition duration-200 ease-in-out mx-2 w-6 h-6"></a>
+            <a href="#"
+                class="fab fa-twitter text-gray-400 hover:text-yellow-400 transition duration-200 ease-in-out mx-2 w-6 h-6"></a>
+            <a href="#"
+                class="fab fa-instagram text-gray-400 hover:text-yellow-400 transition duration-200 ease-in-out mx-2 w-6 h-6"></a>
+            <a href="#"
+                class="fab fa-github text-gray-400 hover:text-yellow-400 transition duration-200 ease-in-out mx-2 w-6 h-6"></a>
+            <a href="#"
+                class="fab fa-linkedin text-gray-400 hover:text-yellow-400 transition duration-200 ease-in-out mx-2 w-6 h-6"></a>
         </div>
     </div>
-</nav>
-<div class="hero">
-    <p>About 3,400,000 results (0.34 seconds) </p>
-    <button>TRANSLATE</button>
-    <ul class="button">
-        <li class="row form">
-            <select></select>
-        </li>
-
-        <li class="change"><i class="fa-solid fa-arrow-right-arrow-left"></i></li>
-        <li class="row to">
-            <select></select>
-        </li>
-    </ul>
-
-    <div class="groupy">
-        <div class="text-input">
-            <textarea spellcheck="false" class="from-text" placeholder="Type your text"></textarea>
-            <textarea spellcheck="false" readonly disabled class="to-text" placeholder="Translation"></textarea>
-        </div>
-    </div>
-    <p>Open in Translation - Feedback</p>
 </div>
-
-<section id="home">
-    <div class="sm">
-        <a href="#" class="fab fa-facebook"></a>
-        <a href="#" class="fab fa-twitter"></a>
-        <a href="#" class="fab fa-instagram"></a>
-        <a href="#" class="fab fa-github"></a>
-        <a href="#" class="fab fa-linkedin"></a>
-    </div>
-</section>
-
 
 <!-- contents (END) -->
 
