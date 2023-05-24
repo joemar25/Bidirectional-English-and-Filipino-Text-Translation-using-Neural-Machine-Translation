@@ -3,7 +3,7 @@ python -m venv .venv
 pip install flask
 python.exe -m pip install --upgrade pip
 pip install python-dotenv
-
+pip install translate
 
 
 

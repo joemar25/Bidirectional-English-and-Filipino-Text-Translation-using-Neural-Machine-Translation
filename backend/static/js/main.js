@@ -1,81 +1,122 @@
-const fromText = document.querySelector('.from-text');
-const arrowIcon = document.querySelector('.change');
-const fromSelect = document.querySelector('.row.form select');
-const toSelect = document.querySelector('.row.to select');
-const toText = document.querySelector('.to-text');
-const translateBtn = document.querySelector("button");
-const selectTags = document.querySelectorAll("select");
-const icons = document.querySelectorAll(".row i");
+const fromLanguageSelect = document.getElementById("from-language");
+const toLanguageSelect = document.getElementById("to-language");
+const fromTextArea = document.getElementById("from-text");
+const toTextArea = document.getElementById("to-text");
+const secondsElement = document.getElementById("seconds");
+const toggleButton = document.getElementById("toggle-languages");
 
-const languages = {
-  en: 'English',
-  fil: 'Filipino',
-};
+// Set the initial selected values for the language dropdowns
+fromLanguageSelect.value = "en";
+toLanguageSelect.value = "tl";
 
-selectTags.forEach((tag, id) => {
-  for (let language_code in languages) {
-    let selected = id === 0
-      ? language_code === "en" ? "selected" : ""
-      : language_code === "fil" ? "selected" : "";
-    let option = `<option ${selected} value="${language_code}">${languages[language_code]}</option>`;
-    tag.insertAdjacentHTML("beforeend", option);
+function throttle(func, delay) {
+  let timeoutId;
+  let lastExecTime = 0;
+
+  return function (...args) {
+    const currentTime = Date.now();
+
+    if (currentTime - lastExecTime > delay) {
+      func.apply(this, args);
+      lastExecTime = currentTime;
+    } else {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func.apply(this, args);
+        lastExecTime = Date.now();
+      }, delay - (currentTime - lastExecTime));
+    }
+  };
+}
+
+// Add a change event listener to the fromLanguageSelect
+fromLanguageSelect.addEventListener("change", () => {
+  const fromLanguageValue = fromLanguageSelect.value;
+  const toLanguageValue = toLanguageSelect.value;
+
+  // If the toLanguage is the same as the fromLanguage, change the toLanguage
+  if (fromLanguageValue === toLanguageValue) {
+    toLanguageSelect.value = fromLanguageSelect.options[
+      fromLanguageSelect.selectedIndex === 0 ? 1 : 0
+    ].value;
   }
 });
 
-arrowIcon.addEventListener('click', () => {
-  const fromValue = fromSelect.value;
-  const toValue = toSelect.value;
-  fromSelect.value = toValue;
-  toSelect.value = fromValue;
+// Add a change event listener to the toLanguageSelect
+toLanguageSelect.addEventListener("change", () => {
+  const fromLanguageValue = fromLanguageSelect.value;
+  const toLanguageValue = toLanguageSelect.value;
 
-  const fromLanguage = fromSelect.options[fromSelect.selectedIndex].text;
-  const toLanguage = toSelect.options[toSelect.selectedIndex].text;
-
-  icons.forEach(icon => {
-    icon.classList.toggle('fa-arrow-right-arrow-left');
-    icon.classList.toggle('fa-arrow-left-arrow-right');
-  });
-});
-
-fromText.addEventListener("keyup", () => {
-  if (!fromText.value) {
-    toText.value = "";
+  // If the toLanguage is the same as the fromLanguage, change the fromLanguage
+  if (fromLanguageValue === toLanguageValue) {
+    fromLanguageSelect.value = toLanguageSelect.options[
+      toLanguageSelect.selectedIndex === 0 ? 1 : 0
+    ].value;
   }
 });
 
-translateBtn.addEventListener("click", () => {
-  let text = fromText.value.trim();
-  let translateFrom = selectTags[0].value;
-  let translateTo = selectTags[1].value;
-  if (!text) return;
-  toText.setAttribute("placeholder", "Translating...");
-  // Send the translation request to the FastAPI
-  fetch("http://127.0.0.1:8080/translate", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      input_text: text,
-      output_language: translateTo,
-    }),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      // Update the translation result
-      toText.value = data.translation;
-      toText.setAttribute("placeholder", "Translation");
+// Add a click event listener to the toggle button
+toggleButton.addEventListener("click", () => {
+  const fromLanguageValue = fromLanguageSelect.value;
+  const toLanguageValue = toLanguageSelect.value;
+
+  // Swap the selected values
+  fromLanguageSelect.value = toLanguageValue;
+  toLanguageSelect.value = fromLanguageValue;
+
+  // Swap the textarea values
+  const temp = fromTextArea.value;
+  fromTextArea.value = toTextArea.value;
+  toTextArea.value = temp;
+});
+
+// Add an input event listener to the fromTextArea for automatic translation
+fromTextArea.addEventListener(
+  "input",
+  throttle(() => {
+    const fromLanguage = fromLanguageSelect.value;
+    const toLanguage = toLanguageSelect.value;
+    const textToTranslate = fromTextArea.value;
+
+    if (textToTranslate === "") {
+      toTextArea.value = "";
+      return;
+    }
+
+    // Measure the start time
+    const startTime = performance.now();
+
+    fetch("/translate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        fromLanguage,
+        toLanguage,
+        textToTranslate,
+      }),
     })
-    .catch((error) => {
-      console.error(error);
-    });
-});
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        toTextArea.value = data.translatedText;
 
-$(document).ready(function () {
-  $(window).scroll(function () {
-    if (this.scrollY > 20)
-      $(".navbar").addClass("sticky");
-    else
-      $(".navbar").removeClass("sticky");
-  });
-});
+        // Measure the end time and calculate the runtime
+        const endTime = performance.now();
+        const runtime = (endTime - startTime) / 1000;
+
+        // Update the seconds element with the runtime
+        secondsElement.textContent = `About (${runtime.toFixed(
+          2
+        )} seconds to translate)`;
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, 500)
+);
