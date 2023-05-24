@@ -6,72 +6,63 @@
 
 <!-- contents (START) -->
 
-<div class="flex flex-col items-center justify-center h-screen">
-    <div class="bg-gray-800 p-4 md:p-10">
-        <div class="navbar top-0 w-full bg-transparent z-50 transition duration-300 ease-in-out flex justify-center">
-            <div class="inner-width flex items-center justify-center flex-col">
-                <a href="{{ url_for('index') }}" class="logo">
-                    <img src="static/images/synomika.png" alt="Synomika" class="h-24" />
-                </a>
-            </div>
+<div class="flex flex-col items-center justify-center min-h-screen">
+    <div class="w-full max-w-3xl bg-gray-800 p-4 md:p-10 rounded-lg">
+      <div class="navbar top-0 w-full bg-transparent z-50 transition duration-300 ease-in-out flex justify-center">
+        <div class="inner-width flex items-center justify-center flex-col">
+          <a href="{{ url_for('index') }}" class="logo">
+            <img src="static/images/synomika.png" alt="Synomika" class="h-24" />
+          </a>
         </div>
-
-        <p class="text-sm mt-4 text-center text-gray-400">About 3,400,000 results (0.34 seconds)</p>
-
-        <form class="translate-form">
-            <ul class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
-                <li class="row from">
-                    <select id="from-language"
-                        class="py-2 px-4 border border-gray-400 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent">
-                        <option value="en" selected>English</option>
-                        <option value="tl">Tagalog</option>
-                    </select>
-                </li>
-                <li class="row to">
-                    <select id="to-language"
-                        class="py-2 px-4 border border-gray-400 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent">
-                        <option value="tl" selected>Tagalog</option>
-                        <option value="en">English</option>
-                    </select>
-                </li>
-            </ul>
-
-
-            <button type="button" id="toggle-languages" onclick="toggleLanguages()"
-                class="change py-2 px-4 bg-yellow-400 text-gray-900 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent hover:bg-yellow-500">
+      </div>
+  
+      <p id="seconds" class="text-sm mt-4 text-center text-gray-400 mb-4">Auto Translation</p>
+  
+      <form class="translate-form">
+        <ul class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 justify-center">
+            <li class="row from">
+                <select id="from-language"
+                class="text-center sm:text-left py-2 px-4 border border-gray-400 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent block w-full">
+                <option value="en">English</option>
+                <option value="tl">Tagalog</option>
+              </select>
+            </li>
+          
+            <button type="button" id="toggle-languages"
+                class="change py-2 px-4 sm:text-sm bg-yellow-400 text-gray-900 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent hover:bg-yellow-500">
                 <i class="fa-solid fa-arrow-right-arrow-left"></i>
             </button>
-
-            <input type="button" value="Translate" id="translate-button"
-                class="bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-2 px-4 rounded">
-
-
-            <div class="text-input flex flex-col md:flex-row mt-4 space-x-0 md:space-x-4">
-                <textarea id="from-text" spellcheck="false"
-                    class="from-text resize-none h-32 w-full md:w-1/2 bg-transparent border border-gray-400 rounded-lg text-xl px-5 py-3 mb-4 md:mb-0 md:mr-2 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
-                    placeholder="Type your text"></textarea>
-                <textarea id="to-text" spellcheck="false" readonly disabled
-                    class="to-text resize-none h-32 w-full md:w-1/2 bg-transparent border border-gray-400 rounded-lg text-xl px-5 py-3 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"></textarea>
-            </div>
-        </form>
-
-        <p class="text-sm mt-4 text-center text-gray-400">Open in Translation - Feedback</p>
-
-        <!-- social media icons -->
-        <div class="mt-4 text-center" style="flex-wrap: wrap;">
-            <a href="#"
-                class="fab fa-facebook text-gray-400 hover:text-yellow-400 transition duration-200 ease-in-out mx-2 w-6 h-6"></a>
-            <a href="#"
-                class="fab fa-twitter text-gray-400 hover:text-yellow-400 transition duration-200 ease-in-out mx-2 w-6 h-6"></a>
-            <a href="#"
-                class="fab fa-instagram text-gray-400 hover:text-yellow-400 transition duration-200 ease-in-out mx-2 w-6 h-6"></a>
-            <a href="#"
-                class="fab fa-github text-gray-400 hover:text-yellow-400 transition duration-200 ease-in-out mx-2 w-6 h-6"></a>
-            <a href="#"
-                class="fab fa-linkedin text-gray-400 hover:text-yellow-400 transition duration-200 ease-in-out mx-2 w-6 h-6"></a>
+          
+            <li class="row to">
+              <select id="to-language"
+                class="text-center sm:text-left py-2 px-4 border border-gray-400 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent block w-full">
+                <option value="tl">Tagalog</option>
+                <option value="en">English</option>
+              </select>
+            </li>
+          </ul>
+  
+  
+        <div class="text-input flex flex-col md:flex-row mt-4 space-x-0 md:space-x-4 text-white">
+          <textarea id="from-text" spellcheck="false"
+            class="from-text resize-none h-32 w-full md:w-1/2 bg-transparent border border-gray-400 rounded-lg text-xl px-5 py-3 mb-4 md:mb-0 md:mr-2 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
+            placeholder="Type your text"></textarea>
+          <textarea id="to-text" spellcheck="false" readonly disabled
+            class="to-text resize-none h-32 w-full md:w-1/2 bg-transparent border border-gray-400 rounded-lg text-xl px-5 py-3 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent" placeholder="Translation here"></textarea>
         </div>
+  
+        <p class="text-sm mt-4 text-center text-gray-400">Open in Translation - Feedback</p>
+  
+        <div class="mt-4 text-center">
+          <a href="#" class="fab fa-facebook text-gray-400 hover:text-yellow-400 transition duration-200 ease-in-out mx-2 w-6 h-6"></a>
+          <a href="#" class="fab fa-twitter text-gray-400 hover:text-yellow-400 transition duration-200 ease-in-out mx-2 w-6 h-6"></a>
+          <a href="#" class="fab fa-instagram text-gray-400 hover:text-yellow-400 transition duration-200 ease-in-out mx-2 w-6 h-6"></a>
+          <a href="#" class="fab fa-github text-gray-400 hover:text-yellow-400 transition duration-200 ease-in-out mx-2 w-6 h-6"></a>
+          <a href="#" class="fab fa-linkedin text-gray-400 hover:text-yellow-400 transition duration-200 ease-in-out mx-2 w-6 h-6"></a>
+        </div>
+      </form>
     </div>
-</div>
+  </div>
 
 <!-- contents (END) -->
 

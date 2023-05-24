@@ -11,10 +11,6 @@ def index():
 def main():
     return render_template("main.html")
 
-@app.errorhandler(404)
-def page_not_found(e):
-    return render_template('404.html'), 404
-
 @app.route('/translate', methods=['POST'])
 def translate_text():
     # Get the request data
@@ -29,3 +25,7 @@ def translate_text():
 
     # Return the translated text
     return jsonify({'translatedText': translated_text})
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404

@@ -4,6 +4,10 @@
 
 {% block body %}
 
-404 Page Not Found
+<div class="flex flex-col items-center justify-center h-screen">
+  <h1 class="text-8xl font-bold mb-8 text-yellow-300">404</h1>
+  <p class="text-2xl mb-16 font-bold text-gray-300">Page Not Found</p>
+  <a href="{{ url_for('index') }}" class="bg-yellow-300 hover:bg-yellow-500 text-white font-bold py-4 px-8 rounded-lg">Go Home</a>
+</div>
 
 {% endblock %}
