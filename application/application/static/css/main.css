@@ -1,0 +1,195 @@
+* {
+    margin: 0; padding: 0;
+    font-family: 'montserrat', sans-serif;
+    box-sizing: border-box;
+    outline: none;
+    text-decoration: none;
+    list-style: none;
+}
+
+
+body {
+    display: flex;
+    padding: 0 10px;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background: url(bg.png) no-repeat center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.hero {
+    max-width: 690px;
+    width: 100%;
+    padding: 30px;
+    text-align: center;
+    background: #E5C687;
+}
+
+.hero p {
+    font-size: 13px;
+}
+#translateBtn{
+    width: 30%;
+    padding: 14px;
+    border: none;
+    margin-top: 9px;
+    font-size: 17px;
+    background: #181818;
+    border-radius: 100px;
+    color: #fff;
+    cursor: pointer;
+}
+/* .hero button {
+    width: 30%;
+    padding: 14px;
+    border: none;
+    margin-top: 9px;
+    font-size: 17px;
+    background: #181818;
+    border-radius: 100px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.hero .button {
+    padding: 12px 0;
+} */
+
+.button, li, i {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.button .row select {
+    color: #333;
+    padding: 5px 10px;
+    font-size: 18px;
+    border: 2px solid #080808;
+    background: none;
+}
+
+.button .change {
+    color: #dd5353;
+    font-size: 20px;
+    cursor: pointer;
+    transition: transform 0.2 ease;
+}
+
+.button i:active {
+    transform: scale(0.9);
+}
+
+.groupy {
+    border: 2px solid #080808;
+    background: #fccaca;
+}
+
+.groupy .text-input {
+    display: flex;
+}
+
+.text-input .to-text {
+    border-left: 2px solid #080808;
+}
+
+.text-input textarea {
+    resize: none;
+    height: 100px;
+    width: 100%;
+    background: none;
+    border: none;
+    font-size: 18px;
+    padding: 10px 15px;
+} 
+
+.navbar {
+    position: fixed;
+    background-color: transparent;
+    width: 100%;
+    padding: 30px 0;
+    top: 0;
+    z-index: 999;
+    transition: .3s linear;
+}
+
+.inner-width {
+    max-width: 1300px;
+    margin: auto;
+    padding: 0 40px;
+}
+
+.navbar .inner-width {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: block;
+    width: 300px;
+    height: 150px;
+    background-image: url(SYNOMIKA.png);
+    background-size: cover;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.logo img {
+    height: 100%;
+}
+
+
+
+.menu-toggler {
+    background: none;
+    width: 30px;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    outline: none;
+    z-index: 999;
+    display: none;
+}
+
+.mene-toggler span {
+    display: block;
+    height: 3px;
+    background-color: #fff;
+    margin: 6px 0;
+    position: relative;
+    transition: .3s linear;
+}
+
+.navbar-menu a{
+    color: #fff;
+    font-size: 15px;
+    font-weight: 500;
+    margin-left: 30px;
+    transition: .2s linear;
+}
+
+.navbar-menu a:hover{
+    color: #dd5353;
+}
+
+.sm {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.sm a {
+    font-size: 22px;
+    padding: 15px;
+    color: #fff;
+    transition: .2s linear;
+}
+
+.sm a:hover {
+    color: #E5C687;
+}
+
